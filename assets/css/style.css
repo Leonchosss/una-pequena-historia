@@ -1,0 +1,955 @@
+/* ======================================================
+   v3.0.0
+   UNA PEQUEÑA HISTORIA
+====================================================== */
+
+/* ===========================
+   RESET
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+
+    width:100%;
+    height:100vh;
+
+    overflow:hidden;
+
+    font-family:"Inter",sans-serif;
+
+    color:#5d2941;
+
+    background:
+    radial-gradient(circle at top,#fffefe 0%,#fff7f8 45%,#fdecef 100%);
+}
+
+/* ===========================
+   CAPAS
+=========================== */
+
+#background,
+#particles,
+#petals{
+
+    position:fixed;
+    inset:0;
+
+    pointer-events:none;
+
+}
+
+#background{ z-index:0; }
+#particles{ z-index:1; }
+#petals{ z-index:2; }
+
+/* ===========================
+   APP
+=========================== */
+
+#app{
+
+    position:relative;
+
+    width:100%;
+    height:100%;
+
+    z-index:10;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:40px;
+
+}
+
+/* ===========================
+   CONTENEDOR DE ESCENAS
+=========================== */
+
+#scene-container{
+
+    width:100%;
+    max-width:900px;
+
+    min-height:650px;
+
+    position:relative;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+}
+
+/* ===========================
+   ESCENAS
+=========================== */
+
+.scene{
+
+    position:absolute;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:
+
+        opacity .9s ease,
+        transform .9s ease,
+        visibility .9s;
+
+    transform:translateY(20px);
+
+}
+
+.scene.active{
+
+    opacity:1;
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
+
+/* ===========================
+   TARJETA
+=========================== */
+
+.card{
+
+    width:100%;
+    max-width:640px;
+
+    text-align:center;
+
+    padding:30px;
+
+}
+
+/* ===========================
+   ROSA
+=========================== */
+
+.rose{
+
+    width:190px;
+
+    margin:auto;
+
+    margin-bottom:35px;
+
+}
+
+.rose img{
+
+    display:block;
+
+    width:100%;
+
+    user-select:none;
+
+    filter:drop-shadow(0 18px 25px rgba(0,0,0,.12));
+
+    animation:float 6s ease-in-out infinite;
+
+}
+
+/* ===========================
+   TÍTULOS
+=========================== */
+
+h1{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:3.2rem;
+
+    font-weight:600;
+
+    margin-bottom:20px;
+
+    color:#7b2148;
+
+}
+
+h2{
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:2.3rem;
+
+    margin-bottom:18px;
+
+}
+
+p{
+
+    font-size:1.08rem;
+
+    line-height:1.9;
+
+    color:#875d71;
+
+}
+
+/* ===========================
+   BOTÓN
+=========================== */
+
+.btn{
+
+    margin-top:45px;
+
+    border:none;
+
+    padding:16px 42px;
+
+    border-radius:999px;
+
+    cursor:pointer;
+
+    background:#d6336c;
+
+    color:white;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    transition:
+        transform .35s,
+        box-shadow .35s,
+        background .35s;
+
+}
+
+.btn:hover{
+
+    background:#bf255d;
+
+    transform:translateY(-3px);
+
+    box-shadow:
+
+        0 16px 35px rgba(214,51,108,.25);
+
+}
+
+/* ===========================
+   PARTÍCULAS
+=========================== */
+
+.sparkle{
+
+    position:absolute;
+
+    border-radius:50%;
+
+    background:white;
+
+    opacity:.25;
+
+}
+
+/* ===========================
+   PÉTALOS
+=========================== */
+
+.petal{
+
+    position:absolute;
+
+    width:20px;
+    height:28px;
+
+    background:
+
+    linear-gradient(
+        145deg,
+        #ffd2de,
+        #ff7ea8
+    );
+
+    border-radius:
+        80% 20%
+        80% 20%;
+
+    box-shadow:
+
+        inset -2px -2px 3px rgba(255,255,255,.45),
+
+        0 3px 8px rgba(0,0,0,.08);
+
+}
+
+/* ===========================
+   ANIMACIONES
+=========================== */
+
+@keyframes float{
+
+    0%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-14px);
+
+    }
+
+    100%{
+
+        transform:translateY(0px);
+
+    }
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:768px){
+
+    #app{
+
+        padding:25px;
+
+    }
+
+    #scene-container{
+
+        min-height:100%;
+
+    }
+
+    .rose{
+
+        width:150px;
+
+    }
+
+    h1{
+
+        font-size:2.4rem;
+
+    }
+
+    h2{
+
+        font-size:2rem;
+
+    }
+
+    p{
+
+        font-size:1rem;
+
+    }
+
+}
+
+/* ===========================
+   FOTOGRAFÍAS
+=========================== */
+
+.photo{
+
+    width:430px;
+
+    height:520px;
+
+    object-fit:cover;
+
+    display:block;
+
+    border-radius:10px;
+
+    transition:
+
+        transform .6s;
+
+}
+
+.photo:hover{
+
+    transform:
+        scale(1.03)
+        rotate(.4deg);
+
+    box-shadow:
+        0 35px 80px rgba(0,0,0,.24);
+
+}
+
+.photo-caption{
+
+     margin-top:18px;
+
+    text-align:center;
+
+    font-family:
+
+        "Cormorant Garamond",serif;
+
+    font-style:italic;
+
+    font-size:1.45rem;
+
+    color:#8b5d72;
+
+}
+
+/* ===========================
+   CARTA
+=========================== */
+
+.letter{
+
+    width:100%;
+    max-width:760px;
+
+    padding:55px;
+
+    background:
+        rgba(255,255,255,.75);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:24px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.12);
+
+    animation:
+        paperAppear .8s ease;
+
+}
+
+.letter-content{
+
+    margin-top:22px;
+
+    text-align:left;
+
+    line-height:2;
+
+    font-size:1.08rem;
+
+    color:#6d4c5d;
+
+    white-space:pre-line;
+    font-size:1.08rem;
+    line-height:1;
+}
+
+/* ===========================
+   ANIMACIONES
+=========================== */
+
+@keyframes photoAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            scale(.9);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            scale(1);
+
+    }
+
+}
+
+@keyframes paperAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translateY(30px)
+            scale(.95);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+/* ===========================
+   TRANSICIONES
+=========================== */
+
+.scene{
+
+    transform:
+        translateY(40px)
+        scale(.98);
+
+}
+
+.scene.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+}
+
+.scene.leaving{
+
+    opacity:0;
+
+    transform:
+        translateY(-25px)
+        scale(.97);
+
+    filter:
+        blur(8px);
+
+}
+
+/*==================================
+ÁLBUM
+==================================*/
+
+.memory-card{
+
+    width:100%;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+}
+
+.memory-counter{
+
+    margin-bottom:22px;
+
+    letter-spacing:4px;
+
+    text-transform:uppercase;
+
+    font-size:.8rem;
+
+    color:#b68aa0;
+
+}
+
+.polaroid{
+
+    background:white;
+
+    padding:18px 18px 28px;
+
+    border-radius:18px;
+
+    box-shadow:
+
+        0 30px 70px rgba(0,0,0,.15);
+
+    animation:
+
+        polaroidIn .9s ease;
+
+}
+
+.polaroid:hover{
+
+    transform:
+
+        rotate(-1deg)
+        scale(1.02);
+
+}
+
+.memory-dots{
+
+    display:flex;
+
+    gap:10px;
+
+    margin:28px 0;
+
+}
+
+.memory-dots span{
+
+    width:10px;
+
+    height:10px;
+
+    border-radius:50%;
+
+    background:#f1cad8;
+
+}
+
+.memory-dots span.active{
+
+    background:#d6336c;
+
+    transform:scale(1.35);
+
+}
+
+@keyframes polaroidIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+
+            translateY(40px)
+            rotate(-5deg)
+            scale(.92);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+
+            translateY(0)
+            rotate(0deg)
+            scale(1);
+
+    }
+
+}
+
+/*=========================================
+SOBRE
+=========================================*/
+
+.envelope{
+
+    position:relative;
+
+    width:320px;
+
+    height:210px;
+
+    margin:60px auto;
+
+    cursor:pointer;
+
+    perspective:1000px;
+
+    animation:envelopeFloat 3.5s ease-in-out infinite;
+
+    transition:
+    transform .35s ease,
+    filter .35s ease;
+
+
+}
+
+/* PARTE TRASERA */
+
+.envelope-back{
+
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+        to bottom,
+        #fdf7ef,
+        #efe4d3
+    );
+
+    border-radius:12px;
+
+    box-shadow:
+        inset 0 2px 3px rgba(255,255,255,.7),
+        inset 0 -5px 12px rgba(0,0,0,.08);
+
+    z-index:0;
+
+}
+
+/* CARTA */
+
+.envelope-letter{
+
+    position: absolute;
+
+    left: 50%;
+    top: 28px;
+
+    width: 78%;
+    height: 180px;
+
+    background: linear-gradient(
+        to bottom,
+        #fffdf8,
+        #f8f3ea
+    );
+
+    border: 1px solid rgba(0,0,0,.05);
+    border-radius: 6px;
+
+    box-shadow: 0 12px 30px rgba(0,0,0,.18);
+
+    z-index: 2;
+
+    transform: translateX(-50%);
+    transform-origin: center top;
+
+    transition:
+        transform 1.2s ease .7s,
+        width .8s ease,
+        height .8s ease,
+        border-radius .8s ease,
+        box-shadow .8s ease,
+        opacity .5s ease;
+
+}
+
+/* FRENTE DEL SOBRE */
+
+.envelope-front{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:100%;
+
+    height:110px;
+
+    background:linear-gradient(
+    145deg,
+    #f6ecdd,
+    #e7d8c3
+    );
+
+    box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.7),
+    0 -2px 8px rgba(0,0,0,.08);
+
+    clip-path:polygon(
+        0 0,
+        50% 70%,
+        100% 0,
+        100% 100%,
+        0 100%
+    );
+
+    z-index:2;
+
+}
+
+/* SOLAPA */
+
+.envelope-flap{
+
+    position:absolute;
+
+    top:0;
+
+    width:100%;
+
+    height:120px;
+
+    background:linear-gradient(
+    to bottom,
+    #fbf4e8,
+    #e7d8c3
+);
+
+transform-origin:top center;
+
+box-shadow:
+    inset 0 1px 2px rgba(255,255,255,.7);
+
+    clip-path:polygon(
+        0 0,
+        100% 0,
+        50% 100%
+    );
+
+    transform-origin:top center;
+
+    transition:
+        transform .8s ease;
+
+    z-index:3;
+
+}
+
+/* APERTURA */
+
+.envelope.open .envelope-flap{
+
+    transform:
+        rotateX(180deg);
+
+}
+
+/* LA CARTA SALE */
+
+.envelope.open .envelope-letter{
+
+        transform:translate(-50%,-170px);
+        z-index: 100;
+}
+
+.envelope-pocket{
+
+    position:absolute;
+
+    inset:0;
+
+    overflow:visible;
+
+    z-index:0;
+
+}
+
+.wax-seal{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:18px;
+
+    transform:translateX(-50%);
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    background:radial-gradient(
+        circle at 35% 35%,
+        #b63d50,
+        #8f2134 70%
+    );
+
+    box-shadow:
+        0 3px 8px rgba(0,0,0,.25),
+        inset 2px 2px 4px rgba(255,255,255,.2),
+        inset -3px -3px 5px rgba(0,0,0,.25);
+
+    z-index:10;
+
+    transition:.35s ease;
+
+}
+
+.wax-seal::before{
+
+    content:"❤";
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#f7d8d8;
+
+    font-size:18px;
+
+}
+
+.envelope.open .wax-seal{
+
+    transform:translateX(-50%) scale(.4);
+
+    opacity:0;
+
+}
+
+@keyframes envelopeFloat{
+
+    0%{
+        transform:translateY(0px);
+    }
+
+    50%{
+        transform:translateY(-5px);
+    }
+
+    100%{
+        transform:translateY(0px);
+    }
+
+}
+
+.envelope.open{
+
+    animation:none;
+
+}
+
+.envelope:hover{
+
+    filter:brightness(1.03);
+
+}
+
+.envelope-letter.expand{
+
+    width:min(90vw,700px);
+
+    height:min(80vh,850px);
+
+    border-radius:12px;
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.25);
+
+}
