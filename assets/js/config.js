@@ -8,7 +8,7 @@ const CONFIG = {
 
     app: {
 
-        title: "Para alguien muy especial",
+        title: "Para una persona muy especial",
 
         subtitle: "Hay algo que quiero compartir contigo...",
 
@@ -20,7 +20,7 @@ const CONFIG = {
 
     animation: {
 
-        typeSpeed: 35,
+        typeSpeed: 40,
 
         fadeDuration: 600,
 
@@ -40,12 +40,12 @@ const CONFIG = {
 
             type: "hero",
 
-            title: "Para alguien muy especial",
+            title: "Para una persona muy especial",
 
             subtitle:
                 "Hay algo que quiero compartir contigo...",
 
-            button: "Abrir esta historia"
+            button: "Comenzar"
 
         },
 
@@ -59,17 +59,17 @@ const CONFIG = {
 
             type: "text",
 
-            title: "Una pequeña historia",
+            title: "Una bonita historia",
 
             paragraphs: [
 
                 "Hay personas que llegan a nuestra vida sin hacer demasiado ruido.",
 
-                "Y, sin darte cuenta, terminan dejando algunos de los recuerdos más bonitos.",
+                "Y, sin darte cuenta, terminan dejando los recuerdos más bonitos.",
 
                 "Esta pequeña historia no busca cambiar el pasado.",
 
-                "Simplemente quería regalarte unos minutos para recordar todo lo bueno que vivimos."
+                "Simplemente quería regalarte un recuerdo de todo lo bueno que vivimos."
 
             ],
 
@@ -92,7 +92,7 @@ const CONFIG = {
             caption:
                 "Siempre recordaré este momento.",
 
-            button: "Continuar"
+            button: "Continuar <3"
 
         },
 
@@ -111,7 +111,7 @@ const CONFIG = {
             caption:
                 "Las sonrisas más sinceras suelen aparecer cuando menos las planeas.",
 
-            button: "Continuar"
+            button: "Continuar :p"
 
         },
 
@@ -130,7 +130,7 @@ const CONFIG = {
             caption:
                 "Hay días que nunca dejan de sentirse especiales.",
 
-            button: "Continuar"
+            button: "Continuar <3"
 
         },
 
@@ -181,7 +181,7 @@ const CONFIG = {
 
             type: "letter",
 
-            title: "Para ti",
+            title: "Angie...",
 
             content: `
 
@@ -197,19 +197,19 @@ Gracias por cada momento.
 
 Gracias por cada recuerdo que hoy sigue haciéndome sonreír.
 
-Tal vez la vida tomó caminos distintos.
+Tal vez las cosas no son como planeamos.
 
 Y está bien.
 
-Solo quería que supieras que siempre guardaré esta etapa con mucho cariño.
+Solo quería que supieras que siempre te llevaré en mi corazón con mucho cariño.
 
-Te deseo de corazón que seas muy feliz.
+Y deseo de corazón que seas muy feliz siempre.
 
-Siempre.
+Atte: Leo :).
 
             `,
 
-            button: "Una última flor"
+            button: "Otra flor"
 
         },
 
