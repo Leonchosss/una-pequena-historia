@@ -62,6 +62,48 @@ function startMusic() {
 }
 
 
+
+/* =====================================================
+   CONTROL DE MÚSICA EN SEGUNDO PLANO
+===================================================== */
+
+let musicWasPlaying = false;
+
+document.addEventListener("visibilitychange", () => {
+
+    if (!bgMusic) return;
+
+    if (document.hidden) {
+
+        // Guardamos si la música estaba reproduciéndose
+        musicWasPlaying = !bgMusic.paused;
+
+        if (musicWasPlaying) {
+            bgMusic.pause();
+        }
+
+        return;
+    }
+
+    // Al regresar a Chrome, reanudar únicamente
+    // si estaba sonando antes de salir
+    if (musicWasPlaying) {
+
+        bgMusic.play().catch(err => {
+
+            console.log(
+                "No fue posible reanudar la música:",
+                err
+            );
+
+        });
+
+        musicWasPlaying = false;
+    }
+
+});
+
+
 /* =====================================================
    UTILIDAD
 ===================================================== */
