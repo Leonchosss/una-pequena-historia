@@ -142,6 +142,175 @@ body{
 }
 
 /* ===========================
+   520 ROSAS
+=========================== */
+
+#roses-layer{
+
+    position:fixed;
+    inset:0;
+
+    z-index:50;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+}
+
+.roses-rain{
+
+    position:absolute;
+    inset:0;
+
+    z-index:2;
+
+    pointer-events:none;
+
+}
+
+.rose-drop{
+
+    position:absolute;
+    top:-8%;
+
+    animation-name:roseDrop;
+    animation-duration:var(--duration,2s);
+    animation-timing-function:ease-in;
+    animation-fill-mode:forwards;
+
+}
+
+.rose-drop img{
+
+    display:block;
+    width:100%;
+
+    filter:drop-shadow(0 6px 8px rgba(123,33,72,.18));
+
+}
+
+.rose-drop.landed{
+
+    animation-play-state:paused;
+
+}
+
+@keyframes roseDrop{
+
+    0%{
+        transform:translate(0,0) rotate(0deg);
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translate(var(--drift,0px), var(--land,100vh)) rotate(var(--spin,180deg));
+        opacity:1;
+    }
+
+}
+
+.roses-fill{
+
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+
+    z-index:1;
+
+    height:0%;
+
+    background:linear-gradient(
+        to top,
+        rgba(191,37,93,.55),
+        rgba(214,51,108,.28) 55%,
+        rgba(214,51,108,0)
+    );
+
+    transition:height .35s ease-out;
+
+}
+
+.roses-reveal{
+
+    position:absolute;
+    inset:0;
+
+    z-index:6;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    pointer-events:none;
+
+}
+
+.roses-reveal .btn{
+
+    position:absolute;
+    bottom:6%;
+
+    pointer-events:auto;
+
+    animation:roseButtonIn .6s ease both;
+
+}
+
+@keyframes roseButtonIn{
+
+    from{
+        opacity:0;
+        transform:translateY(12px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.roses-number{
+
+    position:relative;
+
+    font-family:"Cormorant Garamond",serif;
+    font-size:5.2rem;
+    font-weight:600;
+
+    color:#7b2148;
+
+    padding:20px 50px;
+
+}
+
+.roses-number::before{
+
+    content:"";
+
+    position:absolute;
+    inset:-30px;
+
+    z-index:-1;
+
+    border-radius:50%;
+
+    background:radial-gradient(
+        circle,
+        rgba(255,255,255,.9) 0%,
+        rgba(255,255,255,.55) 55%,
+        rgba(255,255,255,0) 75%
+    );
+
+}
+
+/* ===========================
    ROSA
 =========================== */
 

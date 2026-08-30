@@ -19,48 +19,138 @@ engine.start();
 
 const bgMusic = document.getElementById("bgMusic");
 
-function startMusic() {
+const bgMusic2 = document.getElementById("bgMusic2");
 
-    console.log("startMusic ejecutado");
+const MUSIC_VOLUME = 0.18;
 
-    if (!bgMusic) return;
 
-    // Evita iniciar la música varias veces
-    if (!bgMusic.paused) return;
+/* =====================================================
+   FADE IN / FADE OUT (genérico)
+===================================================== */
 
-    // Comienza en silencio
-    bgMusic.volume = 0;
+function fadeInAudio(audio, targetVolume = MUSIC_VOLUME, duration = 1800) {
 
-    bgMusic.play().catch(err => {
+    if (!audio) return;
 
-        console.log(
-            "No fue posible iniciar la música:",
-            err
-        );
+    // Evita reiniciar si ya está sonando
+    if (!audio.paused) return;
+
+    audio.volume = 0;
+
+    audio.play().catch(err => {
+
+        console.log("No fue posible iniciar el audio:", err);
 
     });
 
-    // Fade-in
+    const steps = 40;
+
+    const stepTime = duration / steps;
+
+    const stepAmount = targetVolume / steps;
+
     let volume = 0;
 
     const fade = setInterval(() => {
 
-        volume += 0.01;
+        volume += stepAmount;
 
-        if (volume >= 0.18) {
+        if (volume >= targetVolume) {
 
-            volume = 0.18;
+            volume = targetVolume;
 
             clearInterval(fade);
 
         }
 
-        bgMusic.volume = volume;
+        audio.volume = volume;
 
-    }, 120);
+    }, stepTime);
 
 }
 
+
+function fadeOutAudio(audio, duration = 1200, onComplete) {
+
+    if (!audio) return;
+
+    if (audio.paused) {
+
+        if (onComplete) onComplete();
+
+        return;
+
+    }
+
+    const steps = 30;
+
+    const stepTime = duration / steps;
+
+    const startVolume = audio.volume;
+
+    let step = 0;
+
+    const fade = setInterval(() => {
+
+        step++;
+
+        const newVolume = startVolume * (1 - step / steps);
+
+        audio.volume = Math.max(newVolume, 0);
+
+        if (step >= steps) {
+
+            clearInterval(fade);
+
+            audio.pause();
+
+            audio.currentTime = 0;
+
+            audio.volume = 0;
+
+            if (onComplete) onComplete();
+
+        }
+
+    }, stepTime);
+
+}
+
+
+/* =====================================================
+   PISTA 1 — background.mp3
+   (Hero -> hasta que aparece "Otra flor")
+===================================================== */
+
+function startMusic() {
+
+    fadeInAudio(bgMusic);
+
+}
+
+function stopMusic(onComplete) {
+
+    fadeOutAudio(bgMusic, 1200, onComplete);
+
+}
+
+
+/* =====================================================
+   PISTA 2 — background2.mp3
+   (Al dar clic en "Otra flor" -> hasta "Volver a empezar")
+===================================================== */
+
+function startMusic2() {
+
+    fadeInAudio(bgMusic2);
+
+}
+
+function stopMusic2(onComplete) {
+
+    fadeOutAudio(bgMusic2, 1200, onComplete);
+
+}
 
 
 /* =====================================================
@@ -69,39 +159,52 @@ function startMusic() {
 
 let musicWasPlaying = false;
 
-document.addEventListener("visibilitychange", () => {
+let music2WasPlaying = false;
 
-    if (!bgMusic) return;
+document.addEventListener("visibilitychange", () => {
 
     if (document.hidden) {
 
-        // Guardamos si la música estaba reproduciéndose
-        musicWasPlaying = !bgMusic.paused;
+        // Guardamos cuál pista estaba sonando
+        musicWasPlaying = bgMusic ? !bgMusic.paused : false;
 
-        if (musicWasPlaying) {
-            bgMusic.pause();
-        }
+        music2WasPlaying = bgMusic2 ? !bgMusic2.paused : false;
+
+        if (musicWasPlaying) bgMusic.pause();
+
+        if (music2WasPlaying) bgMusic2.pause();
 
         return;
+
     }
 
-    // Al regresar a Chrome, reanudar únicamente
-    // si estaba sonando antes de salir
+    // Al regresar, reanudar únicamente la que sonaba
     if (musicWasPlaying) {
 
         bgMusic.play().catch(err => {
 
-            console.log(
-                "No fue posible reanudar la música:",
-                err
-            );
+            console.log("No fue posible reanudar la música:", err);
 
         });
 
         musicWasPlaying = false;
+
+    }
+
+    if (music2WasPlaying) {
+
+        bgMusic2.play().catch(err => {
+
+            console.log("No fue posible reanudar la música:", err);
+
+        });
+
+        music2WasPlaying = false;
+
     }
 
 });
+
 
 
 /* =====================================================

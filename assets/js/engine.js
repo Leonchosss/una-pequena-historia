@@ -76,6 +76,14 @@ async show(index){
 
         this.clear();
 
+        if(this.rosesLayer){
+
+            this.rosesLayer.remove();
+
+            this.rosesLayer = null;
+
+        }
+
         switch(scene.type){
 
             case "hero":
@@ -105,6 +113,12 @@ async show(index){
             case "letter":
 
                 this.renderLetter(scene);
+
+                break;
+
+            case "roses":
+
+                this.renderRoses(scene);
 
                 break;
 
@@ -148,7 +162,7 @@ async show(index){
 
     }
 
-    createButton(text) {
+    createButton(text, onClick) {
 
         const button = document.createElement("button");
 
@@ -158,7 +172,11 @@ async show(index){
 
         button.addEventListener("click", () => {
 
-            startMusic();
+            if(onClick){
+
+                onClick();
+
+            }
 
             this.next();
 
@@ -206,7 +224,7 @@ async show(index){
 
         subtitle.textContent = scene.subtitle;
 
-        const button = this.createButton(scene.button);
+        const button = this.createButton(scene.button, startMusic);
 
         card.appendChild(rose);
 
@@ -510,9 +528,11 @@ envelope.innerHTML = `
 
             () => {
 
+                stopMusic();
+
                 paper.appendChild(
 
-                    this.createButton(scene.button)
+                    this.createButton(scene.button, startMusic2)
 
                 );
 
@@ -571,6 +591,183 @@ envelope.innerHTML = `
     }
 
     /* ==========================================
+       520 ROSAS
+    ========================================== */
+
+    renderRoses(scene){
+
+        /* Escena "vacía" solo para que el motor
+           mantenga su flujo de navegación normal */
+
+        const section = this.createScene();
+
+        this.container.appendChild(section);
+
+        /* Capa a pantalla completa, fuera de la
+           tarjeta, para que la lluvia cubra todo
+           el viewport */
+
+        const layer = document.createElement("div");
+
+        layer.id = "roses-layer";
+
+        const rain = document.createElement("div");
+
+        rain.className = "roses-rain";
+
+        const fill = document.createElement("div");
+
+        fill.className = "roses-fill";
+
+        const reveal = document.createElement("div");
+
+        reveal.className = "roses-reveal";
+
+        reveal.innerHTML = `
+
+            <span class="roses-number">0</span>
+
+        `;
+
+        layer.appendChild(fill);
+
+        layer.appendChild(rain);
+
+        layer.appendChild(reveal);
+
+        document.body.appendChild(layer);
+
+        this.rosesLayer = layer;
+
+        this.runRoseRain(scene, rain, fill, reveal);
+
+    }
+
+    runRoseRain(scene, rain, fill, reveal){
+
+        const total = scene.total;
+
+        const maxFill = 0.92;
+
+        const containerHeight = window.innerHeight;
+
+        const numberEl = reveal.querySelector(".roses-number");
+
+        let spawned = 0;
+
+        let landed = 0;
+
+        const spawnBatch = () => {
+
+            if(spawned >= total){
+
+                clearInterval(spawnTimer);
+
+                return;
+
+            }
+
+            const batchSize = Math.min(6, total - spawned);
+
+            for(let i = 0; i < batchSize; i++){
+
+                spawned++;
+
+                const rose = document.createElement("div");
+
+                rose.className = "rose-drop";
+
+                rose.innerHTML = `<img src="assets/img/rose.svg" alt="">`;
+
+                const size = this.random(14, 26);
+
+                rose.style.width = size + "px";
+
+                rose.style.left = this.random(1, 97) + "%";
+
+                const duration = this.random(1.3, 2.4);
+
+                const drift = this.random(-30, 30);
+
+                const spin = this.random(-260, 260);
+
+                /* Punto donde esta rosa se "asienta" en la
+                   pila, según cuántas ya han caído antes */
+
+                const pileFraction = (spawned / total) * maxFill;
+
+                const jitter = this.random(
+                    -containerHeight * 0.015,
+                    containerHeight * 0.015
+                );
+
+                const landY =
+                    containerHeight -
+                    (containerHeight * pileFraction) +
+                    jitter;
+
+                rose.style.setProperty("--duration", duration + "s");
+                rose.style.setProperty("--drift", drift + "px");
+                rose.style.setProperty("--spin", spin + "deg");
+                rose.style.setProperty("--land", landY + "px");
+
+                rose.style.animationDelay = this.random(0, 0.25) + "s";
+
+                rose.addEventListener("animationend", () => {
+
+                    landed++;
+
+                    rose.classList.add("landed");
+
+                    numberEl.textContent = landed;
+
+                    if(landed >= total){
+
+                        this.finishRoseRain(fill, reveal);
+
+                    }
+
+                });
+
+                rain.appendChild(rose);
+
+            }
+
+            const pct = Math.min(100, (spawned / total) * maxFill * 100);
+
+            fill.style.height = pct + "%";
+
+        };
+
+        const spawnTimer = setInterval(spawnBatch, 40);
+
+        spawnBatch();
+
+    }
+
+    finishRoseRain(fill, reveal){
+
+        fill.style.height = "100%";
+
+        setTimeout(() => {
+
+            reveal.appendChild(
+
+                this.createButton(this.currentScene.button)
+
+            );
+
+        }, 700);
+
+    }
+
+    random(min, max){
+
+        return Math.random() * (max - min) + min;
+
+    }
+
+    /* ==========================================
        FINAL
     ========================================== */
 
@@ -597,6 +794,8 @@ envelope.innerHTML = `
         button.textContent = scene.button;
 
         button.addEventListener("click",()=>{
+
+            stopMusic2();
 
             this.restart();
 
