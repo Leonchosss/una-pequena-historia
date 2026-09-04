@@ -25,16 +25,16 @@ x2="100%" y2="100%">
 
 <radialGradient id="petal">
 
-<stop offset="0%" stop-color="#FFD5E3"/>
-<stop offset="45%" stop-color="#FF82AE"/>
-<stop offset="100%" stop-color="#C91C5A"/>
+<stop offset="0%" stop-color="#FFD9D6"/>
+<stop offset="45%" stop-color="#E0313F"/>
+<stop offset="100%" stop-color="#7A0F1F"/>
 
 </radialGradient>
 
 <radialGradient id="center">
 
-<stop offset="0%" stop-color="#FFADC8"/>
-<stop offset="100%" stop-color="#A10F44"/>
+<stop offset="0%" stop-color="#FF6B57"/>
+<stop offset="100%" stop-color="#5C0A16"/>
 
 </radialGradient>
 
@@ -126,7 +126,7 @@ cy="45"
 rx="18"
 ry="32"
 transform="rotate(-18 95 45)"
-fill="#FF95BA"/>
+fill="#D93444"/>
 
 <ellipse
 cx="125"
@@ -134,7 +134,7 @@ cy="45"
 rx="18"
 ry="32"
 transform="rotate(18 125 45)"
-fill="#FF95BA"/>
+fill="#D93444"/>
 
 <!-- centro -->
 

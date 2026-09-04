@@ -186,7 +186,7 @@ body{
     display:block;
     width:100%;
 
-    filter:drop-shadow(0 6px 8px rgba(123,33,72,.18));
+    filter:drop-shadow(0 6px 8px rgba(90,10,20,.22));
 
 }
 
@@ -227,9 +227,9 @@ body{
 
     background:linear-gradient(
         to top,
-        rgba(191,37,93,.55),
-        rgba(214,51,108,.28) 55%,
-        rgba(214,51,108,0)
+        rgba(139,10,26,.55),
+        rgba(178,26,42,.28) 55%,
+        rgba(178,26,42,0)
     );
 
     transition:height .35s ease-out;
