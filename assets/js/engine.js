@@ -84,6 +84,14 @@ async show(index){
 
         }
 
+        if(this.balloonsLayer){
+
+            this.balloonsLayer.remove();
+
+            this.balloonsLayer = null;
+
+        }
+
         switch(scene.type){
 
             case "hero":
@@ -119,6 +127,24 @@ async show(index){
             case "roses":
 
                 this.renderRoses(scene);
+
+                break;
+
+            case "giftbox":
+
+                this.renderGiftbox(scene);
+
+                break;
+
+            case "cake":
+
+                this.renderCake(scene);
+
+                break;
+
+            case "balloons":
+
+                this.renderBalloons(scene);
 
                 break;
 
@@ -528,11 +554,15 @@ envelope.innerHTML = `
 
             () => {
 
-                stopMusic();
+                if(scene.onReveal){
+
+                    scene.onReveal();
+
+                }
 
                 paper.appendChild(
 
-                    this.createButton(scene.button, startMusic2)
+                    this.createButton(scene.button, scene.onButtonClick)
 
                 );
 
@@ -768,6 +798,339 @@ envelope.innerHTML = `
     }
 
     /* ==========================================
+       CAJA DE REGALO
+    ========================================== */
+
+    renderGiftbox(scene){
+
+        const section = this.createScene();
+
+        const card = this.createCard();
+
+        const title = document.createElement("h2");
+
+        title.textContent = scene.title;
+
+        const subtitle = document.createElement("p");
+
+        subtitle.textContent = scene.subtitle;
+
+        const box = document.createElement("div");
+
+        box.className = "giftbox";
+
+        box.innerHTML = `
+
+            <div class="box-glow"></div>
+
+            <div class="box-lid"><div class="bow"></div></div>
+
+            <div class="box-body">
+                <div class="ribbon-v"></div>
+                <div class="ribbon-h"></div>
+            </div>
+
+        `;
+
+        box.addEventListener("click", () => {
+
+            if(box.classList.contains("open")) return;
+
+            box.classList.add("open");
+
+            stopMusic2();
+
+            startMusic3();
+
+            setTimeout(() => {
+
+                this.next();
+
+            }, 1500);
+
+        });
+
+        card.appendChild(title);
+
+        card.appendChild(subtitle);
+
+        card.appendChild(box);
+
+        section.appendChild(card);
+
+        this.container.appendChild(section);
+
+    }
+
+    /* ==========================================
+       PASTEL
+    ========================================== */
+
+    renderCake(scene){
+
+        const section = this.createScene();
+
+        const card = this.createCard();
+
+        const title = document.createElement("h2");
+
+        title.textContent = scene.title;
+
+        const subtitle = document.createElement("p");
+
+        subtitle.textContent = scene.subtitle;
+
+        const cake = document.createElement("div");
+
+        cake.className = "cake";
+
+        cake.innerHTML = `
+
+            <div class="candles"></div>
+            <div class="cake-top"></div>
+            <div class="cake-layer cake-layer-2"></div>
+            <div class="cake-layer cake-layer-1"></div>
+            <div class="cake-plate"></div>
+
+        `;
+
+        const candlesWrap = cake.querySelector(".candles");
+
+        const total = scene.candles;
+
+        const candleEls = [];
+
+        for(let i = 0; i < total; i++){
+
+            const candle = document.createElement("div");
+
+            candle.className = "candle";
+
+            candle.innerHTML = `
+
+                <div class="candle-flame"></div>
+                <div class="candle-stick"></div>
+
+            `;
+
+            candleEls.push(candle);
+
+            candlesWrap.appendChild(candle);
+
+        }
+
+        let blown = false;
+
+        cake.classList.add("cake-tappable");
+
+        cake.addEventListener("click", () => {
+
+            if(blown) return;
+
+            blown = true;
+
+            cake.classList.add("blown");
+
+            candleEls.forEach((candle, i) => {
+
+                setTimeout(() => {
+
+                    candle.classList.add("out");
+
+                }, i * 35);
+
+            });
+
+            setTimeout(() => {
+
+                this.next();
+
+            }, (total * 35) + 700);
+
+        });
+
+        card.appendChild(title);
+
+        card.appendChild(subtitle);
+
+        card.appendChild(cake);
+
+        section.appendChild(card);
+
+        this.container.appendChild(section);
+
+    }
+
+    /* ==========================================
+       GLOBOS
+    ========================================== */
+
+    renderBalloons(scene){
+
+        const section = this.createScene();
+
+        this.container.appendChild(section);
+
+        const layer = document.createElement("div");
+
+        layer.id = "balloons-layer";
+
+        const rain = document.createElement("div");
+
+        rain.className = "balloons-rain";
+
+        const fill = document.createElement("div");
+
+        fill.className = "balloons-fill";
+
+        const reveal = document.createElement("div");
+
+        reveal.className = "balloons-reveal";
+
+        reveal.innerHTML = `<span class="balloons-number">0</span>`;
+
+        layer.appendChild(fill);
+
+        layer.appendChild(rain);
+
+        layer.appendChild(reveal);
+
+        document.body.appendChild(layer);
+
+        this.balloonsLayer = layer;
+
+        this.runBalloonRise(scene, rain, fill, reveal);
+
+    }
+
+    runBalloonRise(scene, rain, fill, reveal){
+
+        const total = scene.total;
+
+        const maxFill = 0.85;
+
+        const containerHeight = window.innerHeight;
+
+        const numberEl = reveal.querySelector(".balloons-number");
+
+        const colors = ["#e0313f", "#ffffff", "#f4c84a", "#bf255d"];
+
+        let spawned = 0;
+
+        let landed = 0;
+
+        const spawnBatch = () => {
+
+            if(spawned >= total){
+
+                clearInterval(spawnTimer);
+
+                return;
+
+            }
+
+            const batchSize = Math.min(3, total - spawned);
+
+            for(let i = 0; i < batchSize; i++){
+
+                spawned++;
+
+                const balloon = document.createElement("div");
+
+                balloon.className = "balloon-drop";
+
+                const size = this.random(34, 54);
+
+                balloon.style.width = size + "px";
+
+                balloon.style.height = (size * 1.2) + "px";
+
+                balloon.style.left = this.random(4, 90) + "%";
+
+                const color = colors[
+
+                    Math.floor(Math.random() * colors.length)
+
+                ];
+
+                balloon.style.background = color;
+
+                balloon.style.color = color;
+
+                const duration = this.random(2.2, 3.4);
+
+                const drift = this.random(-40, 40);
+
+                /* Punto donde este globo se "acomoda"
+                   bajo el techo, según cuántos ya subieron */
+
+                const pileFraction = (spawned / total) * maxFill;
+
+                const jitter = this.random(
+                    -containerHeight * 0.02,
+                    containerHeight * 0.02
+                );
+
+                const landY =
+                    (containerHeight * pileFraction) + jitter;
+
+                const rise = landY - containerHeight;
+
+                balloon.style.setProperty("--duration", duration + "s");
+                balloon.style.setProperty("--drift", drift + "px");
+                balloon.style.setProperty("--rise", rise + "px");
+
+                balloon.style.animationDelay = this.random(0, 0.3) + "s";
+
+                balloon.addEventListener("animationend", () => {
+
+                    landed++;
+
+                    balloon.classList.add("landed");
+
+                    numberEl.textContent = landed;
+
+                    if(landed >= total){
+
+                        this.finishBalloonRise(fill, reveal);
+
+                    }
+
+                });
+
+                rain.appendChild(balloon);
+
+            }
+
+            const pct = Math.min(100, (spawned / total) * maxFill * 100);
+
+            fill.style.height = pct + "%";
+
+        };
+
+        const spawnTimer = setInterval(spawnBatch, 110);
+
+        spawnBatch();
+
+    }
+
+    finishBalloonRise(fill, reveal){
+
+        fill.style.height = "100%";
+
+        setTimeout(() => {
+
+            reveal.appendChild(
+
+                this.createButton(this.currentScene.button)
+
+            );
+
+        }, 700);
+
+    }
+
+    /* ==========================================
        FINAL
     ========================================== */
 
@@ -796,6 +1159,8 @@ envelope.innerHTML = `
         button.addEventListener("click",()=>{
 
             stopMusic2();
+
+            stopMusic3();
 
             this.restart();
 

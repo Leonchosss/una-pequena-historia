@@ -1429,3 +1429,665 @@ box-shadow:
     }
 
 }
+
+/* ===========================
+   CÓDIGO DE ACCESO
+=========================== */
+
+#access-gate{
+
+    position:fixed;
+    inset:0;
+
+    z-index:999;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        radial-gradient(circle at top,#fffefe 0%,#fff7f8 45%,#fdecef 100%);
+
+    transition:opacity .6s ease;
+
+}
+
+#access-gate.hidden{
+
+    opacity:0;
+
+    pointer-events:none;
+
+}
+
+.gate-card{
+
+    text-align:center;
+
+    padding:40px 34px;
+
+    max-width:320px;
+
+    width:88%;
+
+}
+
+.gate-icon{
+
+    font-size:2.3rem;
+
+    margin-bottom:10px;
+
+}
+
+.gate-card h2{
+
+    font-family:"Cormorant Garamond",serif;
+
+    color:#7b2148;
+
+    font-size:1.5rem;
+    font-weight:600;
+
+    margin-bottom:8px;
+
+}
+
+.gate-card p{
+
+    color:#8b5d72;
+    font-size:.92rem;
+
+    margin-bottom:18px;
+
+}
+
+.gate-hint{
+
+    font-size:.78rem;
+
+    line-height:1.5;
+
+    color:#b68aa0;
+
+    font-style:italic;
+
+    margin-top:-8px;
+
+}
+
+#gate-input{
+
+    width:100%;
+
+    text-align:center;
+
+    font-family:"Inter",sans-serif;
+    font-size:1.3rem;
+    letter-spacing:6px;
+
+    color:#7b2148;
+
+    padding:12px;
+
+    border:2px solid #f1cad8;
+    border-radius:12px;
+
+    margin-bottom:16px;
+
+    outline:none;
+
+    transition:border-color .25s ease;
+
+}
+
+#gate-input:focus{
+
+    border-color:#d6336c;
+
+}
+
+#gate-error{
+
+    color:#bf255d;
+    font-size:.85rem;
+
+    margin-top:12px;
+
+    opacity:0;
+
+    transition:opacity .3s ease;
+
+}
+
+#gate-error.show{
+
+    opacity:1;
+
+}
+
+.gate-card.shake{
+
+    animation:gateShake .4s ease;
+
+}
+
+@keyframes gateShake{
+
+    0%,100%{ transform:translateX(0); }
+    25%{ transform:translateX(-8px); }
+    75%{ transform:translateX(8px); }
+
+}
+
+/* ===========================
+   CAJA DE REGALO
+=========================== */
+
+.giftbox{
+
+    position:relative;
+
+    width:220px;
+    max-width:70%;
+
+    height:200px;
+
+    margin:40px auto 0;
+
+    cursor:pointer;
+
+}
+
+.box-glow{
+
+    position:absolute;
+    inset:-50px;
+
+    z-index:0;
+
+    border-radius:50%;
+
+    background:radial-gradient(
+        circle,
+        rgba(255,217,214,.9) 0%,
+        rgba(255,217,214,0) 70%
+    );
+
+    opacity:0;
+
+    transition:opacity .8s ease;
+
+}
+
+.giftbox.open .box-glow{
+
+    opacity:1;
+
+}
+
+.box-body{
+
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+
+    height:130px;
+
+    z-index:1;
+
+    background:linear-gradient(135deg,#d6336c,#a81f4f);
+
+    border-radius:10px;
+
+    box-shadow:0 20px 40px rgba(123,33,72,.25);
+
+    overflow:hidden;
+
+    transition:opacity .6s ease .3s;
+
+}
+
+.ribbon-v{
+
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:50%;
+
+    width:22px;
+    margin-left:-11px;
+
+    background:#ffd9d6;
+
+}
+
+.ribbon-h{
+
+    position:absolute;
+    left:0;
+    right:0;
+    top:50%;
+
+    height:22px;
+    margin-top:-11px;
+
+    background:#ffd9d6;
+
+}
+
+.box-lid{
+
+    position:absolute;
+    top:22px;
+    left:-10px;
+    right:-10px;
+
+    height:46px;
+
+    z-index:3;
+
+    background:linear-gradient(135deg,#bf255d,#8f1c45);
+
+    border-radius:10px;
+
+    box-shadow:0 10px 18px rgba(123,33,72,.25);
+
+    transform-origin:top center;
+
+    transition:
+        transform .9s cubic-bezier(.34,1.3,.4,1),
+        opacity .9s ease;
+
+}
+
+.bow{
+
+    position:absolute;
+    top:-14px;
+    left:50%;
+
+    width:28px;
+    height:28px;
+
+    margin-left:-14px;
+
+    background:#ffd9d6;
+
+    border-radius:50% 50% 50% 0;
+
+    transform:rotate(45deg);
+
+    box-shadow:0 4px 10px rgba(0,0,0,.15);
+
+}
+
+.giftbox.open .box-lid{
+
+    transform:translateY(-130px) rotate(-22deg);
+
+    opacity:0;
+
+}
+
+.giftbox.open .box-body{
+
+    opacity:.55;
+
+}
+
+/* ===========================
+   PASTEL
+=========================== */
+
+.cake{
+
+    position:relative;
+
+    width:320px;
+    max-width:92%;
+
+    height:210px;
+
+    margin:40px auto 0;
+
+}
+
+.cake-tappable{
+
+    cursor:pointer;
+
+}
+
+.candles{
+
+    position:absolute;
+    top:8px;
+    left:0;
+    right:0;
+
+    z-index:4;
+
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:4px;
+
+    padding:0 10px;
+
+    pointer-events:none;
+
+}
+
+.candle{
+
+    position:relative;
+
+    width:9px;
+    height:42px;
+
+}
+
+.candle-stick{
+
+    position:absolute;
+    bottom:0;
+    left:50%;
+
+    width:6px;
+    height:30px;
+
+    margin-left:-3px;
+
+    background:linear-gradient(#fff4d6,#f4d58d);
+
+    border-radius:2px;
+
+}
+
+.candle-flame{
+
+    position:absolute;
+    top:0;
+    left:50%;
+
+    width:10px;
+    height:16px;
+
+    margin-left:-5px;
+
+    background:radial-gradient(
+        circle at 50% 30%,
+        #fff6c8,
+        #ffb347 60%,
+        #e0313f 100%
+    );
+
+    border-radius:50% 50% 50% 50% / 65% 65% 35% 35%;
+
+    transform-origin:bottom center;
+
+    animation:flameFlicker 1.1s ease-in-out infinite;
+
+}
+
+@keyframes flameFlicker{
+
+    0%,100%{ transform:scale(1) rotate(-2deg); }
+    50%{ transform:scale(1.08) rotate(2deg); }
+
+}
+
+.candle.out .candle-flame{
+
+    opacity:0;
+
+    transform:scale(.3);
+
+    transition:opacity .3s ease, transform .3s ease;
+
+}
+
+.cake-top{
+
+    position:absolute;
+    top:40px;
+    left:8%;
+    right:8%;
+
+    height:26px;
+
+    z-index:2;
+
+    background:#fff;
+
+    border-radius:50%;
+
+}
+
+.cake-layer{
+
+    position:absolute;
+    left:4%;
+    right:4%;
+
+    border-radius:14px;
+
+}
+
+.cake-layer-2{
+
+    top:52px;
+
+    height:70px;
+
+    z-index:1;
+
+    background:linear-gradient(180deg,#ffe3e6,#ffc9d1);
+
+}
+
+.cake-layer-1{
+
+    top:118px;
+    left:0;
+    right:0;
+
+    height:82px;
+
+    z-index:0;
+
+    background:linear-gradient(180deg,#e0313f,#b21f2c);
+
+    border-radius:16px;
+
+}
+
+.cake-plate{
+
+    position:absolute;
+    bottom:-10px;
+    left:-6%;
+    right:-6%;
+
+    height:16px;
+
+    background:#f3e3e6;
+
+    border-radius:50%;
+
+    box-shadow:0 6px 10px rgba(0,0,0,.08);
+
+}
+
+/* ===========================
+   GLOBOS
+=========================== */
+
+#balloons-layer{
+
+    position:fixed;
+    inset:0;
+
+    z-index:50;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+}
+
+.balloons-rain{
+
+    position:absolute;
+    inset:0;
+
+    z-index:2;
+
+    pointer-events:none;
+
+}
+
+.balloon-drop{
+
+    position:absolute;
+    top:100%;
+
+    border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+
+    box-shadow:
+        inset -6px -6px 10px rgba(0,0,0,.12),
+        inset 6px 6px 10px rgba(255,255,255,.25);
+
+    animation-name:balloonRise;
+    animation-duration:var(--duration,2.6s);
+    animation-timing-function:ease-out;
+    animation-fill-mode:forwards;
+
+}
+
+.balloon-drop::after{
+
+    content:"";
+
+    position:absolute;
+    left:50%;
+    bottom:-9px;
+
+    width:0;
+    height:0;
+
+    border-left:5px solid transparent;
+    border-right:5px solid transparent;
+    border-top:8px solid currentColor;
+
+    transform:translateX(-50%);
+
+}
+
+.balloon-drop.landed{
+
+    animation-play-state:paused;
+
+}
+
+@keyframes balloonRise{
+
+    0%{
+        transform:translate(0,0);
+        opacity:0;
+    }
+
+    10%{
+        opacity:1;
+    }
+
+    100%{
+        transform:translate(var(--drift,0px), var(--rise,-100vh));
+        opacity:1;
+    }
+
+}
+
+.balloons-fill{
+
+    position:absolute;
+    left:0;
+    right:0;
+    top:0;
+
+    z-index:1;
+
+    height:0%;
+
+    background:linear-gradient(
+        to bottom,
+        rgba(224,49,63,.35),
+        rgba(244,200,74,.18) 55%,
+        rgba(244,200,74,0)
+    );
+
+    transition:height .35s ease-out;
+
+}
+
+.balloons-reveal{
+
+    position:absolute;
+    inset:0;
+
+    z-index:6;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    pointer-events:none;
+
+}
+
+.balloons-reveal .btn{
+
+    position:absolute;
+    bottom:6%;
+
+    pointer-events:auto;
+
+    animation:roseButtonIn .6s ease both;
+
+}
+
+.balloons-number{
+
+    position:relative;
+
+    font-family:"Cormorant Garamond",serif;
+    font-size:5.2rem;
+    font-weight:600;
+
+    color:#7b2148;
+
+    padding:20px 50px;
+
+}
+
+.balloons-number::before{
+
+    content:"";
+
+    position:absolute;
+    inset:-30px;
+
+    z-index:-1;
+
+    border-radius:50%;
+
+    background:radial-gradient(
+        circle,
+        rgba(255,255,255,.9) 0%,
+        rgba(255,255,255,.55) 55%,
+        rgba(255,255,255,0) 75%
+    );
+
+}

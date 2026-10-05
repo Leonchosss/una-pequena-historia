@@ -22,6 +22,38 @@
 <body>
 
     <!-- ==========================
+         CANDADO DE ACCESO
+    =========================== -->
+
+    <div id="access-gate">
+
+        <div class="gate-card">
+
+            <div class="gate-icon">🔒</div>
+
+            <h2>Esto es solo para ti</h2>
+
+            <p>Ingresa el código para continuar</p>
+
+            <p class="gate-hint">Pista: Es una fecha especial, si no recuerdas, no te preocupes, acaba de ser enviada a tu teléfono.</p>
+
+            <input
+                type="text"
+                id="gate-input"
+                inputmode="numeric"
+                maxlength="6"
+                placeholder="••••••"
+                autocomplete="off">
+
+            <button id="gate-submit" class="btn">Entrar</button>
+
+            <p id="gate-error">Código incorrecto, intenta de nuevo</p>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================
          CAPAS VISUALES
     =========================== -->
 
@@ -52,6 +84,10 @@
 
 <audio id="bgMusic2" loop preload="auto">
     <source src="assets/audio/background2.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="bgMusic3" loop preload="auto">
+    <source src="assets/audio/background3.mp3" type="audio/mpeg">
 </audio>
 
     <!-- ==========================

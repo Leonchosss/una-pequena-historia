@@ -209,7 +209,11 @@ Atte: Leo :).
 
             `,
 
-            button: "Otra flor"
+            button: "Otra flor",
+
+            onReveal: () => stopMusic(),
+
+            onButtonClick: () => startMusic2()
 
         },
 
@@ -224,6 +228,84 @@ Atte: Leo :).
             type: "roses",
 
             total: 520,
+
+            button: "Continuar"
+
+        },
+
+        /* ==========================================
+           CAJA DE REGALO
+        ========================================== */
+
+        {
+
+            id: "giftbox",
+
+            type: "giftbox",
+
+            title: "Espera, hay algo más...",
+
+            subtitle: "Toca la caja"
+
+        },
+
+        /* ==========================================
+           PASTEL
+        ========================================== */
+
+        {
+
+            id: "cake",
+
+            type: "cake",
+
+            title: "¡Feliz Cumpleaños!",
+
+            subtitle: "Toca el pastel para apagar las velas",
+
+            candles: 23
+
+        },
+
+        /* ==========================================
+           GLOBOS
+        ========================================== */
+
+        {
+
+            id: "balloons",
+
+            type: "balloons",
+
+            total: 23,
+
+            button: "Continuar"
+
+        },
+
+        /* ==========================================
+           CARTA DE CUMPLEAÑOS
+        ========================================== */
+
+        {
+
+            id: "birthdayLetter",
+
+            type: "letter",
+
+            title: "Un deseo más",
+
+            content: `
+
+Angie,
+
+Antes de cerrar esta pequeña tarjeta que hice para tí, quería dejarte algo más.
+
+Hoy es tu cumpleaños, y aunque a veces las palabras no alcanzan, quiero que sepas que te deseo de corazón que rías mucho, que te sorprendas seguido, que vivas miles de experiencias y alegrías y que nunca dejes de ser exactamente como eres, que es lo que nos hace quererte.
+
+Feliz Cumpleaños. Te mereces todo lo bonito.
+
+            `,
 
             button: "Continuar"
 

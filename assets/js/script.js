@@ -7,10 +7,79 @@ const engine = new StoryEngine("scene-container");
 
 
 /* =====================================================
+   CÓDIGO DE ACCESO
+===================================================== */
+
+const ACCESS_CODE = "070722";
+
+const accessGate = document.getElementById("access-gate");
+
+const gateInput = document.getElementById("gate-input");
+
+const gateSubmit = document.getElementById("gate-submit");
+
+const gateError = document.getElementById("gate-error");
+
+const gateCard = document.querySelector(".gate-card");
+
+function tryUnlock(){
+
+    if(gateInput.value.trim() === ACCESS_CODE){
+
+        accessGate.classList.add("hidden");
+
+        setTimeout(() => {
+
+            accessGate.remove();
+
+        }, 700);
+
+        engine.start();
+
+    } else {
+
+        gateError.classList.add("show");
+
+        gateCard.classList.remove("shake");
+
+        void gateCard.offsetWidth;
+
+        gateCard.classList.add("shake");
+
+        gateInput.value = "";
+
+        gateInput.focus();
+
+    }
+
+}
+
+
+/* =====================================================
    INICIAR APLICACIÓN
 ===================================================== */
 
-engine.start();
+if(accessGate){
+
+    gateSubmit.addEventListener("click", tryUnlock);
+
+    gateInput.addEventListener("keydown", (e) => {
+
+        if(e.key === "Enter"){
+
+            tryUnlock();
+
+        }
+
+    });
+
+    gateInput.focus();
+
+} else {
+
+    engine.start();
+
+}
 
 
 /* =====================================================
@@ -20,6 +89,8 @@ engine.start();
 const bgMusic = document.getElementById("bgMusic");
 
 const bgMusic2 = document.getElementById("bgMusic2");
+
+const bgMusic3 = document.getElementById("bgMusic3");
 
 const MUSIC_VOLUME = 0.18;
 
@@ -154,12 +225,32 @@ function stopMusic2(onComplete) {
 
 
 /* =====================================================
+   PISTA 3 — background3.mp3
+   (Al abrir la caja de regalo -> hasta "Volver a empezar")
+===================================================== */
+
+function startMusic3() {
+
+    fadeInAudio(bgMusic3);
+
+}
+
+function stopMusic3(onComplete) {
+
+    fadeOutAudio(bgMusic3, 1200, onComplete);
+
+}
+
+
+/* =====================================================
    CONTROL DE MÚSICA EN SEGUNDO PLANO
 ===================================================== */
 
 let musicWasPlaying = false;
 
 let music2WasPlaying = false;
+
+let music3WasPlaying = false;
 
 document.addEventListener("visibilitychange", () => {
 
@@ -170,9 +261,13 @@ document.addEventListener("visibilitychange", () => {
 
         music2WasPlaying = bgMusic2 ? !bgMusic2.paused : false;
 
+        music3WasPlaying = bgMusic3 ? !bgMusic3.paused : false;
+
         if (musicWasPlaying) bgMusic.pause();
 
         if (music2WasPlaying) bgMusic2.pause();
+
+        if (music3WasPlaying) bgMusic3.pause();
 
         return;
 
@@ -200,6 +295,18 @@ document.addEventListener("visibilitychange", () => {
         });
 
         music2WasPlaying = false;
+
+    }
+
+    if (music3WasPlaying) {
+
+        bgMusic3.play().catch(err => {
+
+            console.log("No fue posible reanudar la música:", err);
+
+        });
+
+        music3WasPlaying = false;
 
     }
 
