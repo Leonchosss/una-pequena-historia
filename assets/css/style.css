@@ -2091,3 +2091,55 @@ box-shadow:
     );
 
 }
+
+
+/* ===========================
+   AVISO AUTOMÁTICO
+=========================== */
+
+.notice-text{
+
+    font-family:"Cormorant Garamond",serif;
+    font-size:1.7rem;
+    font-weight:600;
+
+    color:#7b2148;
+
+    text-align:center;
+
+    max-width:320px;
+
+    margin:0 auto;
+
+    line-height:1.45;
+
+}
+
+.volume-icon{
+
+    display:flex;
+
+    justify-content:center;
+
+    margin-bottom:22px;
+
+}
+
+.wave{
+
+    opacity:0;
+
+    animation:waveAppear 1.8s ease-in-out infinite;
+
+}
+
+.wave1{ animation-delay:0s; }
+.wave2{ animation-delay:.22s; }
+.wave3{ animation-delay:.44s; }
+
+@keyframes waveAppear{
+
+    0%,100%{ opacity:0; }
+    40%,70%{ opacity:1; }
+
+}

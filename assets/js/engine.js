@@ -94,6 +94,12 @@ async show(index){
 
         switch(scene.type){
 
+            case "notice":
+
+                this.renderNotice(scene);
+
+                break;
+
             case "hero":
 
                 this.renderHero(scene);
@@ -794,6 +800,77 @@ envelope.innerHTML = `
     random(min, max){
 
         return Math.random() * (max - min) + min;
+
+    }
+
+    /* ==========================================
+       AVISO AUTOMÁTICO
+    ========================================== */
+
+    renderNotice(scene){
+
+        const section = this.createScene();
+
+        const card = this.createCard();
+
+        if(scene.icon === "volume"){
+
+            const icon = document.createElement("div");
+
+            icon.className = "volume-icon";
+
+            icon.innerHTML = `
+
+                <svg viewBox="0 0 120 120" width="90" height="90">
+                    <polygon
+                        points="20,45 45,45 70,25 70,95 45,75 20,75"
+                        fill="#7b2148"></polygon>
+                    <path
+                        class="wave wave1"
+                        d="M80,50 Q92,60 80,70"
+                        stroke="#d6336c"
+                        stroke-width="7"
+                        fill="none"
+                        stroke-linecap="round"></path>
+                    <path
+                        class="wave wave2"
+                        d="M90,38 Q110,60 90,82"
+                        stroke="#d6336c"
+                        stroke-width="7"
+                        fill="none"
+                        stroke-linecap="round"></path>
+                    <path
+                        class="wave wave3"
+                        d="M100,26 Q128,60 100,94"
+                        stroke="#d6336c"
+                        stroke-width="7"
+                        fill="none"
+                        stroke-linecap="round"></path>
+                </svg>
+
+            `;
+
+            card.appendChild(icon);
+
+        }
+
+        const text = document.createElement("h2");
+
+        text.className = "notice-text";
+
+        text.textContent = scene.text;
+
+        card.appendChild(text);
+
+        section.appendChild(card);
+
+        this.container.appendChild(section);
+
+        setTimeout(() => {
+
+            this.next();
+
+        }, scene.duration || 2600);
 
     }
 

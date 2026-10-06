@@ -31,6 +31,24 @@ const CONFIG = {
     scenes: [
 
         /* ==========================================
+           AVISO DE VOLUMEN
+        ========================================== */
+
+        {
+
+            id: "volumeHint",
+
+            type: "notice",
+
+            icon: "volume",
+
+            text: "Te recomiendo subir un poco el volumen",
+
+            duration: 3200
+
+        },
+
+        /* ==========================================
            HERO
         ========================================== */
 
@@ -308,6 +326,22 @@ Feliz Cumpleaños. Te mereces todo lo bonito.
             `,
 
             button: "Continuar"
+
+        },
+
+        /* ==========================================
+           AVISO DE REGALOS
+        ========================================== */
+
+        {
+
+            id: "giftsWish",
+
+            type: "notice",
+
+            text: "Ojalá que te gusten tus regalos",
+
+            duration: 2600
 
         },
 
