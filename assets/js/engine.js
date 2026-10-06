@@ -397,7 +397,11 @@ renderPhoto(scene){
 
     counter.className = "memory-counter";
 
-    counter.textContent = `Recuerdo ${this.currentIndex - 1} de 4`;
+    const photoScenes = CONFIG.scenes.filter(s => s.type === "photo");
+
+    const photoNumber = photoScenes.indexOf(scene) + 1;
+
+    counter.textContent = `Recuerdo ${photoNumber} de ${photoScenes.length}`;
 
     const frame = document.createElement("div");
 
